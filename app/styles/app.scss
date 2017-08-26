@@ -1,0 +1,14 @@
+/*
+  Our app.scss is a root file.
+  In root file you dont define selectors but you define imports
+  You load in files that define selectors
+*/
+
+@import "base/variables";
+
+//foundation
+@import "base/foundation-settings";
+@import "foundation";
+@include foundation-everything;
+
+//Components
