@@ -14,6 +14,7 @@ var Route = require('react-router').Route;
 Similar thing we would have to do for other variables as well
 */
 
+var TodoApp = require('TodoApp');
 
 //Load Foundation
 
@@ -25,6 +26,6 @@ require('style!css!sass!applicationStyles')
 $(document).foundation();
 
 ReactDOM.render(
-  <p>Boiler Plate Project</p>,
+  <TodoApp/>,
   document.getElementById('app')
 );

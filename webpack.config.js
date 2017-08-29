@@ -22,6 +22,14 @@ module.exports = {
   },
   resolve: {
     root: __dirname,// __dirname gives path to whatever file we are in
+    modulesDirectories: [
+      /*
+        If we define modulesDirectories, then we dont have to define alias
+        for components we create
+      */
+      'node_modules',
+      './app/components'
+    ],
     alias: {
       applicationStyles: 'app/styles/app.scss'
     },
