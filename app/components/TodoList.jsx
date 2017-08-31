@@ -22,7 +22,8 @@ var TodoList = React.createClass({
             key prop. This key props is used internally by react to keep track
             of individual component
           */
-          <Todo key={todo.id} {...todo}/>//spread operator in props
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          //spread operator in props
             /*
               Because of spread operator every attribute in todo would be passed
               to Todo as its own prop
