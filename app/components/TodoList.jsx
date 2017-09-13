@@ -8,6 +8,12 @@ var TodoList = React.createClass({
     var {todos} = this.props;
     var renderTodos = () => {
 
+      if(todos.length === 0) {
+        return (
+          <p className="container__message">Nothing To Do</p>
+        );
+      }
+
       /*
         todo.map takes a function and it calls that function
         for every element in the array and whatever you return gets replaced
