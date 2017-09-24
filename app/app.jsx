@@ -16,8 +16,16 @@ Similar thing we would have to do for other variables as well
 
 var TodoApp = require('TodoApp');
 
-//Load Foundation
+var actions = require('actions');
+var store = require('configureStore').configure();
 
+store.subscribe(() => {
+  console.log('New State', store.getState());
+});
+
+store.dispatch(actions.addTodo('Clean the yard'));
+store.dispatch(actions.setSearchText('yard'));
+store.dispatch(actions.toggleShowCompleted());
 
 //App css
 require('style!css!sass!applicationStyles')
