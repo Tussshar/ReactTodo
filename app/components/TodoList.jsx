@@ -1,7 +1,13 @@
 var React = require('react');
-var Todo = require('Todo');
+var {connect} = require('react-redux');
+/*
+  Connect is a companion to provider component
+  The provider component provides access to store for all of its children
+  but children still needs to specify which data they would like
+*/
+import Todo from 'Todo';
 
-var TodoList = React.createClass({
+export var TodoList = React.createClass({
 
   render: function(){
 
@@ -28,7 +34,7 @@ var TodoList = React.createClass({
             key prop. This key props is used internally by react to keep track
             of individual component
           */
-          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          <Todo key={todo.id} {...todo}/>
           //spread operator in props
             /*
               Because of spread operator every attribute in todo would be passed
@@ -45,4 +51,21 @@ var TodoList = React.createClass({
   }
 });
 
-module.exports = TodoList;
+export default connect(
+  /*
+    First argument to connect lets us spcify which pieces of state our
+    component wants
+  */
+  (state) => {
+    /*
+      return the object of this state that we care about
+    */
+    return {
+      todos: state.todos
+      /*
+        With this in place, this property todos is going to get set on
+        props of our component
+      */
+    };
+  }
+)(TodoList);//TodoList component can request data it would like to render itself
