@@ -6,12 +6,14 @@ var {connect} = require('react-redux');
   but children still needs to specify which data they would like
 */
 import Todo from 'Todo';
+var TodoAPI = require('TodoAPI');
 
 export var TodoList = React.createClass({
 
   render: function(){
 
-    var {todos} = this.props;
+    var {todos, showCompleted, searchText} = this.props;
+
     var renderTodos = () => {
 
       if(todos.length === 0) {
@@ -26,7 +28,7 @@ export var TodoList = React.createClass({
         SO if I have an array of 1, 2, 3 and in this function I take a value
         and add 1 then I would have array of 2, 3, 4
       */
-      return todos.map((todo) => {
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         return (
           /*
             When you are iterating over an array and you are generating
@@ -43,6 +45,7 @@ export var TodoList = React.createClass({
         );
       });
     };
+    
     return (
       <div>
         {renderTodos()}
@@ -59,13 +62,8 @@ export default connect(
   (state) => {
     /*
       return the object of this state that we care about
+      we want all the properties so we return state
     */
-    return {
-      todos: state.todos
-      /*
-        With this in place, this property todos is going to get set on
-        props of our component
-      */
-    };
+    return state;
   }
 )(TodoList);//TodoList component can request data it would like to render itself
