@@ -16,7 +16,9 @@ export var TodoList = React.createClass({
 
     var renderTodos = () => {
 
-      if(todos.length === 0) {
+      var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+
+      if(filteredTodos.length === 0) {
         return (
           <p className="container__message">Nothing To Do</p>
         );
@@ -28,7 +30,7 @@ export var TodoList = React.createClass({
         SO if I have an array of 1, 2, 3 and in this function I take a value
         and add 1 then I would have array of 2, 3, 4
       */
-      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+      return filteredTodos.map((todo) => {
         return (
           /*
             When you are iterating over an array and you are generating
@@ -45,7 +47,7 @@ export var TodoList = React.createClass({
         );
       });
     };
-    
+
     return (
       <div>
         {renderTodos()}
