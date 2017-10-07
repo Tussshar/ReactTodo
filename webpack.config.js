@@ -1,6 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
 
+/*
+  Currently our bundle file is gigantic i.e. 5.8 MB
+  A website shouldn't be this big
+  We have few things that we dont need in production
+  we can solve this using env variable
+*/
+
+//for production env NODE_ENV would have some value, but nothing for development env
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 module.exports = {
   entry: [
     'script!jquery/dist/jquery.min.js',
@@ -14,6 +24,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false//this would disable warnings in your file
+      }
     })
   ],
   output: {
@@ -57,5 +72,17 @@ module.exports = {
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
   },
-  devtool: 'cheap-module-eval-source-map'//allows us to create sourcemap
+  devtool: process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-eval-source-map'
+  //allows us to create sourcemap
+  //we dont need sourcemap in production
+  /*
+    To run without sourcemap in dev env:
+    In terminal run the following command:
+    NODE_ENV=production webpack
+    notice the size of bundle file
+
+    we can also run it using p flag
+    NODE_ENV=production webpack -p
+    it takes a bit longer to run but does ton of optimization
+  */
 };
