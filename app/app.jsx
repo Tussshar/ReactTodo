@@ -20,12 +20,12 @@ var Route = require('react-router').Route;
 Similar thing we would have to do for other variables as well
 */
 
-var TodoApp = require('TodoApp');
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 var TodoAPI = require('TodoAPI');
 import Login from 'Login';
+import TodoApp from 'TodoApp';
 
 store.dispatch(actions.startAddTodos());
 
