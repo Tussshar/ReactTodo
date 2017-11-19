@@ -16,7 +16,7 @@
   object instead they return functions where we can do some asynchronous flow
 */
 
-import firebase, {firebaseRef} from 'app/firebase/';
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 import moment from 'moment';
 
 /*
@@ -111,6 +111,25 @@ export var startToggleTodo = (id, completed) => {
 
     return todoRef.update(updates).then(() => {
       dispatch(updateTodo(id, updates));
+    });
+  };
+};
+
+export var startLogin = () => {
+  return (dispatch, getState) => {
+    //firebase has many inbuilt methods
+    firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      console.log('Auth Worked!', result);
+    }, (error) => {
+      console.log('Unable to Auth', error);
+    });
+  };
+};
+
+export var startLogout = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signOut().then(() => {
+      console.log('Logged Out!');
     });
   };
 };
